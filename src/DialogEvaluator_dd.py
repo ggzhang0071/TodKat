@@ -24,9 +24,9 @@ class DialogEvaluator:
     def __init__(
             self,
             dataloader: DataLoader,
-            name: str = "",
+            name = "",
             # softmax_model=None,
-            device: str = None):
+            device = "cuda" if torch.cuda.is_available() else "cpu"):
         '''
         Constructs an evaluator for the given dataset
 

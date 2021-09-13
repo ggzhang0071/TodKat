@@ -58,10 +58,10 @@ class DialogTransformer(nn.Sequential):
     Here, the modules will be either an LSTM or a Transformer
     '''
 
-    def __init__(
+    def __init__( 
             self,
-            model_name_or_path: str = None,
-            modules: Iterable[nn.Module] = None, device: str = None):
+            model_name_or_path= "/git/TodKat/save/saved-model-dailydialog",
+            modules = "Transformer", device = "cuda"):
         '''
         In the very beginning, the modules shouldn't be null,
         If modules is not None, then train the model. Else, load the model and
@@ -198,25 +198,25 @@ class DialogTransformer(nn.Sequential):
         #     json.dump({'__version__': __version__}, fOut, indent=2)
 
     def fit(self,
-            train_objectives: Iterable[Tuple[DataLoader, nn.Module]],
-            evaluator: DialogEvaluator,
-            epochs: int = 1,
+            train_objectives =Iterable[Tuple[DataLoader, nn.Module]],
+            evaluator=DialogEvaluator,
+            epochs = 1,
             steps_per_epoch=None,
-            scheduler: str = 'WarmupLinear',
-            warmup_steps: int = 10000,
-            optimizer_class: Type[Optimizer] = transformers.AdamW,
-            optimizer_params: Dict[str, object] = {
+            scheduler = 'WarmupLinear',
+            warmup_steps = 10000,
+            optimizer_class  = transformers.AdamW,
+            optimizer_params = {
                 'lr': 2e-5,
                 'eps': 1e-6,
                 'correct_bias': False},
-            weight_decay: float = 0.01,
-            evaluation_steps: int = 0,
-            output_path: str = None,
-            save_best_model: bool = True,
-            max_grad_norm: float = 1,
-            fp16: bool = False,
-            fp16_opt_level: str = 'O1',
-            local_rank: int = -1
+            weight_decay = 0.01,
+            evaluation_steps = 0,
+            output_path = None,
+            save_best_model = True,
+            max_grad_norm = 1,
+            fp16 = False,
+            fp16_opt_level = 'O1',
+            local_rank = -1
             ):
         """
         Train the model with the given training objective
@@ -527,7 +527,7 @@ class DialogTransformer(nn.Sequential):
                 epoch,
                 -1)
 
-    def evaluate(self, evaluator: DialogEvaluator, output_path: str = None):
+    def evaluate(self, evaluator= DialogEvaluator, output_path = None):
         """
         Evaluate the model
         evaluate after training
@@ -552,7 +552,7 @@ class DialogTransformer(nn.Sequential):
                 self.best_score = score
 
     def _get_scheduler(
-            self, optimizer, scheduler: str, warmup_steps: int, t_total: int):
+            self, optimizer, scheduler, warmup_steps, t_total):
         """
         Returns the correct learning rate scheduler
 
